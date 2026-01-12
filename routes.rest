@@ -1,0 +1,27 @@
+### Get Professional Data
+GET http://localhost:8080/professional
+
+### Create Professional Data
+POST http://localhost:8080/professional
+Content-Type: application/json
+
+{
+  "professionalName": "Enoh Akpan",
+  "base64Image": "",
+  "nameLink": {
+    "firstName": "Enoh",
+    "url": "https://enoh.com"
+  },
+  "primaryDescription": "Software Developer with expertise in web technologies",
+  "workDescription1": "Experienced in building scalable web applications",
+  "workDescription2": "Passionate about clean code and modern development practices",
+  "linkTitleText": "Connect with me:",
+  "linkedInLink": {
+    "text": "LinkedIn Profile",
+    "link": "https://linkedin.com/in/enoakpan"
+  },
+  "githubLink": {
+    "text": "GitHub Profile",
+    "link": "https://github.com/enoakpan"
+  }
+}
