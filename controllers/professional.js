@@ -18,4 +18,49 @@ const getData = async (req, res) => {
   });
 };
 
-module.exports = { getData, getAllData };
+
+const createData = async (req, res, next) => {
+  const professional = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    favoriteColor: req.body.favoriteColor,
+    birthday: req.body.birthday
+  };
+  const response = await mongodb.getDb().db('cse341').collection('contacts').insertOne(professional);
+  if (response.acknowledged) {
+    res.status(201).json(response);
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while creating the contact. Please try again later, thank you');
+  }
+};
+
+
+const updateData = async (req, res, next) => {
+  const id = new ObjectId(req.params.id);
+  const professional = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    favoriteColor: req.body.favoriteColor,
+    birthday: req.body.birthday
+  };
+  const response = await mongodb.getDb().db('cse341').collection('contacts').replaceOne({ _id: id }, professional);
+  if (response.modifiedCount > 0) {
+    res.status(204).send();
+  } else {
+    res.status(500).json(response.error || 'Error updating contact.');
+  }
+};
+
+const deleteData = async (req, res, next) => {
+  const id = new ObjectId(req.params.id);
+  const response = await mongodb.getDb().db('cse341').collection('contacts').deleteOne({ _id: id });
+  if (response.deletedCount > 0) {
+    res.status(200).send();
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+  }
+};  
+module.exports = { getData, getAllData, createData, updateData, deleteData };
+

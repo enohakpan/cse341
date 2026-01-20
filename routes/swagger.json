@@ -1,0 +1,312 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CSE341 Professional API",
+    "version": "1.0.0",
+    "description": "API for managing professional profile data"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/professional/{id}": {
+      "put": {
+        "summary": "Update the professional by id",
+        "tags": ["Professional"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The professional id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "professionalName": { "type": "string" },
+                  "base64Image": { "type": "string" },
+                  "primaryDescription": { "type": "string" },
+                  "nameLink": {
+                    "type": "object",
+                    "properties": {
+                      "firstName": { "type": "string" },
+                      "url": { "type": "string" }
+                    }
+                  },
+                  "workDescription1": { "type": "string" },
+                  "workDescription2": { "type": "string" },
+                  "linkTitleText": { "type": "string" },
+                  "linkedInLink": {
+                    "type": "object",
+                    "properties": {
+                      "text": { "type": "string" },
+                      "link": { "type": "string" }
+                    }
+                  },
+                  "githubLink": {
+                    "type": "object",
+                    "properties": {
+                      "text": { "type": "string" },
+                      "link": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Professional updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove the professional by id",
+        "tags": ["Professional"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The professional id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Professional deleted successfully"
+          }
+        }
+      }
+    }
+      "get": {
+        "summary": "Returns the list of all professionals",
+        "tags": ["Professional"],
+        "responses": {
+          "200": {
+            "description": "The list of professionals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Professional"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new professional",
+        "tags": ["Professional"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Professional"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The professional was successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Professional"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Some server error"
+          }
+        }
+      }
+    },
+    "/professional/{id}": {
+      "get": {
+        "summary": "Get a professional by id",
+        "tags": ["Professional"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The professional id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The professional description by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Professional"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The professional was not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update the professional by id",
+        "tags": ["Professional"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The professional id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Professional"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "The professional was updated"
+          },
+          "404": {
+            "description": "The professional was not found"
+          },
+          "500": {
+            "description": "Some error happened"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove the professional by id",
+        "tags": ["Professional"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The professional id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The professional was deleted"
+          },
+          "404": {
+            "description": "The professional was not found"
+          },
+          "500": {
+            "description": "Some error happened"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Professional": {
+        "type": "object",
+        "required": ["professionalName"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the professional"
+          },
+          "professionalName": {
+            "type": "string",
+            "description": "The professional's name"
+          },
+          "base64Image": {
+            "type": "string",
+            "description": "Base64 encoded image"
+          },
+          "primaryDescription": {
+            "type": "string",
+            "description": "Primary description text"
+          },
+          "nameLink": {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          },
+          "workDescription1": {
+            "type": "string",
+            "description": "First work description"
+          },
+          "workDescription2": {
+            "type": "string",
+            "description": "Second work description"
+          },
+          "linkTitleText": {
+            "type": "string",
+            "description": "Link title text"
+          },
+          "linkedInLink": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          },
+          "githubLink": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('./db/mongo');
 const professionalRoutes = require('./routes/professional');
+const swaggerRoutes = require('./routes/swagger');
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -16,7 +17,8 @@ app
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
   })
-  .use('/professional', professionalRoutes);
+  .use('/professional', professionalRoutes)
+  .use('/', swaggerRoutes);
 
 mongodb.initDb((err, mongodb) => {
   if (err) {
