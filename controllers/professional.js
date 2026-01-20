@@ -2,6 +2,7 @@ const mongodb = require('../db/mongo');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAllData = async (req, res, next) => {
+  //#swagger.tags = ['Professional']
   const result = await mongodb.getDb().db('cse341').collection('contacts').find();
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
@@ -10,6 +11,7 @@ const getAllData = async (req, res, next) => {
 };
 
 const getData = async (req, res) => {
+  //#swagger.tags = ['Professional']
   const id = new ObjectId(req.params.id);
   const result = await mongodb.getDb().db('cse341').collection('contacts').find({ _id: id });
   result.toArray().then((lists) => {
@@ -20,6 +22,7 @@ const getData = async (req, res) => {
 
 
 const createData = async (req, res, next) => {
+  //#swagger.tags = ['Professional']
   const professional = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -37,6 +40,7 @@ const createData = async (req, res, next) => {
 
 
 const updateData = async (req, res, next) => {
+  //#swagger.tags = ['Professional']
   const id = new ObjectId(req.params.id);
   const professional = {
     firstName: req.body.firstName,
